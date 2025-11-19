@@ -1,0 +1,59 @@
+!
+! ASA Version 9.12(3)12
+!
+hostname ASA-FW
+domain-name example.com
+enable password YourStrongEnablePassword encrypted
+!
+interface GigabitEthernet0/0
+ nameif outside
+ security-level 0
+ ip address 203.0.113.1 255.255.255.0
+!
+interface GigabitEthernet0/1
+ nameif inside
+ security-level 100
+ ip address 192.168.1.1 255.255.255.0
+!
+interface GigabitEthernet0/2
+ nameif dmz
+ security-level 50
+ ip address 192.168.2.1 255.255.255.0
+!
+dns domain-lookup outside
+dns server-group DefaultDNS
+ name-server 8.8.8.8
+ name-server 1.1.1.1
+!
+route outside 0.0.0.0 0.0.0.0 203.0.113.254
+!
+object network OBJ-WEB-SERVER
+ host 192.168.2.10
+ description DMZ Web Server
+!
+object network OBJ-WEB-NAT
+ host 203.0.113.10
+ nat (dmz,outside) static OBJ-WEB-SERVER
+!
+object-group network INTERNAL_SUBNETS
+ network-object 192.168.1.0 255.255.255.0
+!
+object-group service WEB_SERVICES tcp
+ port-object eq 80
+ port-object eq 443
+!
+access-list OUTSIDE_IN extended permit tcp any object OBJ-WEB-SERVER eq 80
+access-list OUTSIDE_IN extended permit tcp any object OBJ-WEB-SERVER eq 443
+access-list INSIDE_OUT extended permit ip object-group INTERNAL_SUBNETS any
+!
+access-group OUTSIDE_IN in interface outside
+access-group INSIDE_OUT in interface inside
+!
+nat (inside,outside) after-auto source dynamic any interface
+!
+service-policy global_policy global
+!
+logging enable
+logging buffer-size 8192
+logging buffered informational
+!

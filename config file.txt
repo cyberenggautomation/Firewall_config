@@ -1,0 +1,483 @@
+: Serial Number: FCH20357ZVY
+: Hardware:   ASA5555, 16384 MB RAM, CPU Lynnfield 2800 MHz, 1 CPU (8 cores)
+: Written by enable_15 at 08:41:39.544 IST Fri Jun 27 2025
+!
+ASA Version 9.12(3)12 
+!
+terminal width 500
+hostname INPRJ-CCU-SOCInt01
+domain-name IN.nam.ad.abcinternal.com
+enable password n5GI9J.NL0bPI8eM encrypted
+service-module 0 keepalive-timeout 4
+service-module 0 keepalive-counter 6
+service-module ips keepalive-timeout 4
+names
+dns-guard
+no mac-address auto
+ip local pool SOC_VPN_DHCP 172.22.20.1-172.22.20.250 mask 255.255.0.0
+
+!
+interface GigabitEthernet0/0
+ nameif inside
+ security-level 100
+ ip address 172.22.0.250 255.255.255.0 
+ ospf priority 0
+!
+interface GigabitEthernet0/1
+ nameif outside
+ security-level 0
+ ip address 219.65.72.154 255.255.255.248 
+!
+!
+time-range #16328
+ absolute start 13:00 05 November 2024 end 17:00 05 November 2024
+!
+time-range 01-MAR-2023
+ absolute end 16:00 01 March 2023
+!
+time-range 02-april-2024
+ absolute start 12:00 22 November 2024 end 15:00 22 November 2024
+!
+time-range 05-april23(2hours)
+ absolute start 13:10 05 April 2023 end 17:15 05 April 2023
+!
+time-range SR210097
+ absolute start 14:50 31 May 2024 end 16:00 31 May 2024
+!
+time-range SR470878
+ absolute end 10:50 15 January 2027
+!
+banner login ************************************************************************
+banner login * WARNING NOTICE *
+banner login * *
+banner login * This system and the information processed or contained within, is the *
+banner login * property of abc CPC. Access to these resources is *
+banner login * expressly restricted to authorised *** users. Unauthorised users are *
+banner login * subject to disciplinary proceedings and/or criminal and civil*
+banner login * proceedings, under local and foreign laws. *
+banner login * *
+banner login * Individuals, including authorised users, are subject to having their*
+banner login * activities on this system monitored and recorded by system personnel. *
+banner login * *
+banner login * Anyone using this system expressly consents to such monitoring and is *
+banner login * advised that any evidence of possible criminal activities uncovered *
+banner login * during that observation, may be provided to law enforcement age*
+banner asdm ************************************************************************
+banner asdm * WARNING NOTICE *
+banner asdm * *
+banner asdm * This system and the information processed or contained within, is the *
+banner asdm * property of abc CPC. Access to these resources is *
+banner asdm * expressly restricted to authorised *** users. Unauthorised users are *
+banner asdm * subject to disciplinary proceedings and/or criminal and civil*
+banner asdm * proceedings, under local and foreign laws. *
+banner asdm * *
+banner asdm * Individuals, including authorised users, are subject to having their*
+banner asdm * activities on this system monitored and recorded by system personnel. *
+banner asdm * *
+banner asdm * Anyone using this system expressly consents to such monitoring and is *
+banner asdm * advised that any evidence of possible criminal activities uncovered *
+banner asdm * during that observation, may be provided to law enforcement age*
+boot system disk0:/asa9-12-3-12-smp-k8.bin
+ftp mode passive
+clock timezone IST 5 30
+dns domain-lookup inside
+dns domain-lookup outside
+dns server-group DefaultDNS
+ name-server 10.31.8.111 
+ name-server 10.31.8.101 
+ name-server 172.22.2.5 inside
+ domain-name IN.nam.ad.abcinternal.com
+object network Obj_any
+ subnet 0.0.0.0 0.0.0.0
+object network NET-172.22.0.0
+ subnet 172.22.0.0 255.255.0.0
+object network IP-102.56.45.23
+ host 102.56.45.23
+object network AnyConnect_VPN__172.22.20.0_24
+ subnet 172.22.20.0 255.255.255.0
+object service 8443
+ service tcp destination eq 8443 
+object network ESM
+ host 172.22.2.50
+object network NNM
+ host 172.22.2.52
+object network ADserver
+ host 172.22.2.5
+object network quwasd.com
+ fqdn v4 quwasd.com
+object network wondergodst.com
+ fqdn v4 wondergodst.com
+object-group network HSK_Network
+ network-object object HSK_Host1
+object-group network CPC_LnT_Powai_Subnet
+ description 27th Feb 2023
+ network-object object N-172.22.2.0
+object-group network Blacklist-IP-Grp
+ description 157.245.101.12
+ network-object object IP-102.56.45.23
+ network-object object Blacklist_IP
+ network-object object Blacklist_181.77.20.14
+ network-object object Blacklist_41.79.136.70
+ network-object object Blacklist_95.154.24.73
+ network-object object host_179.184.37.124
+ network-object object host_60.191.38.77
+object-group service SR-655527 tcp-udp
+ port-object eq 443
+ port-object range 49152 65535
+ port-object eq domain
+ port-object eq www
+access-list outside_access_in extended deny ip object-group Blacklist-IP-Grp any log 
+access-list outside_access_in remark SOAR-SMAX integration
+access-list outside_access_in extended permit ip object-group SOAR-SMAX object-group SOAR-IPGroup 
+access-list outside_access_in remark SR-389190
+access-list outside_access_in extended permit tcp object-group DM_INLINE_NETWORK_105 object MISP_Server object-group ports_20dec time-range 12_nov 
+access-list outside_access_in extended permit tcp object-group Securonix_Public_IPs object H_192.168.105.20 eq https inactive 
+access-list outside_access_in extended permit object-group DM_INLINE_SERVICE_35 object-group Trend-Micro object H_172.22.2.194 
+access-list outside_access_in extended permit object 9093 object LnT_Azure_98.70.20.197 object H_172.22.2.191 time-range SR_277917_CR_278129 
+access-list outside_access_in extended permit tcp object BSID_Chakkan_Host3 object H_172.22.2.155 object-group DM_INLINE_TCP_23 
+access-list outside_access_in extended permit object-group TCPUDP object-group DM_INLINE_NETWORK_144 object H-172.22.2.108 object-group TCP-UDP-8443 inactive 
+access-list outside_access_in extended permit udp object-group DM_INLINE_NETWORK_92 object 172.22.2.52 object-group DM_INLINE_UDP_93 time-range SBI 
+access-list outside_access_in extended permit udp object-group DM_INLINE_NETWORK_76 object 172.22.2.52 object-group DM_INLINE_UDP_77 time-range CR-282768_SR-280119 
+access-list outside_access_in remark ArcSight integration
+pager lines 100
+logging enable
+logging timestamp
+logging buffered debugging
+logging trap informational
+logging asdm informational
+logging facility 23
+logging host inside 172.22.2.82
+logging host inside 172.22.2.130 17/11515
+logging class auth trap debugging 
+logging class vpnc trap debugging 
+flow-export destination inside 172.22.2.52 2055
+flow-export template timeout-rate 2
+flow-export delay flow-create 15
+mtu inside 1500
+mtu outside 1500
+mtu DMZ_PRIMARY 1500
+mtu spanport 1500
+mtu management 1500
+no failover
+no failover wait-disable
+no monitor-interface service-module 
+icmp unreachable rate-limit 1 burst-size 1
+icmp deny any echo-reply outside
+asdm image disk0:/asdm-7122.bin
+no asdm history enable
+arp timeout 14400
+no arp permit-nonconnected
+arp rate-limit 32768
+nat (outside,any) source static XDR_Arcsight_log_forwarding XDR_Arcsight_log_forwarding destination static interface h-172.22.2.196 service 514 514
+nat (outside,inside) source static XDR_Google_chronicles XDR_Google_chronicles destination static CPC_Network16 CPC_Network16 service UDP_11516 UDP_11516 no-proxy-arp
+nat (outside,inside) source static XDR_Google_chronicles XDR_Google_chronicles destination static CPC_Network16 CPC_Network16 service syslogchronicles syslogchronicles no-proxy-arp
+nat (outside,inside) source static XDR_Arcsight_log_forwarding XDR_Arcsight_log_forwarding destination static CPC_NewConnecorServer CPC_NewConnecorServer service Syslog Syslog no-proxy-arp
+nat (inside,outside) source static CPC_Powai_Network CPC_Powai_Network destination static L&T_Powai_Network L&T_Powai_Network no-proxy-arp route-lookup inactive
+nat (inside,outside) source static any any destination static AnyConnect_VPN__172.22.20.0_24 AnyConnect_VPN__172.22.20.0_24 no-proxy-arp route-lookup
+nat (inside,outside) source static CPC_LnT_Conn_Network CPC_LnT_Conn_Network destination static LnT_conn_Network LnT_conn_Network no-proxy-arp description Created on 14th June 2021
+nat (outside,DMZ_PRIMARY) source static DM_INLINE_NETWORK_3 DM_INLINE_NETWORK_3 destination static abc_Webserver_Internal Tableau no-proxy-arp
+nat (outside,inside) source static Religare_gurgaon_Network Religare_gurgaon_Network destination static CPC_fullnetwork CPC_fullnetwork no-proxy-arp
+nat (outside,inside) source static HFC_Mumbai_Network HFC_Mumbai_Network destination static CPC_HFC_Network CPC_HFC_Network no-proxy-arp route-lookup
+nat (outside,inside) source static COSMOS_MUMBAI_NETWORK COSMOS_MUMBAI_NETWORK destination static CPC_NETWORK_COSMOS CPC_NETWORK_COSMOS no-proxy-arp
+nat (outside,inside) source static Cosmos_host4 CosmosBank destination static CPC_fullnetwork CPC_fullnetwork no-proxy-arp
+nat (outside,inside) source static Cosmos_host9 Cosmos_Host_7 destination static CPC_fullnetwork CPC_fullnetwork no-proxy-arp
+nat (outside,inside) source static Cosmos_Host10 Cosmos_Host_6 destination static CPC_fullnetwork CPC_fullnetwork no-proxy-arp
+nat (outside,inside) source static Cosmos_Host11 Cosmos_Host_8 destination static CPC_fullnetwork CPC_fullnetwork no-proxy-arp
+!
+object network Obj_any
+ nat (any,outside) dynamic interface
+access-group inside_access_in in interface inside
+access-group AnyConnect_Restrict in interface outside control-plane
+access-group outside_access_in in interface outside
+access-group DMZ_PRIMARY_access_in in interface DMZ_PRIMARY
+access-group Trillion_Dollars-vti_access_in in interface Trillion_Dollars-vti
+access-group Dabur_Azure_VTI_access_in in interface Dabur_Azure_VTI
+access-group abc_FTS-Lab_access_in in interface abc_FTS-Lab
+access-group Lnt_Digital_ECC_access_in in interface Lnt_Digital_ECC
+access-group bOAT_vti_2_access_in in interface bOAT_vti_2
+access-group SOC_rule global
+!
+route-map TCP_BGP_Weight permit 10
+
+!
+route-map TCP_AS_Path_prepend permit 10
+
+ set as-path prepend 65000 65000
+!
+router ospf 100
+ router-id 172.22.0.250
+ network 172.22.0.250 255.255.255.255 area 0
+ network 219.65.72.154 255.255.255.255 area 0
+ log-adj-changes
+!
+router bgp 65000
+ bgp log-neighbor-changes
+ bgp graceful-restart
+ timers bgp 10 30 0
+ address-family ipv4 unicast
+  neighbor 169.254.199.93 remote-as 65100
+  neighbor 169.254.199.93 timers 10 30 30
+  neighbor 169.254.199.93 activate
+  neighbor 169.254.58.105 remote-as 64512
+  neighbor 169.254.58.105 activate
+  neighbor 169.254.110.109 remote-as 65100
+  neighbor 169.254.110.109 timers 10 30 30
+  neighbor 169.254.110.109 activate
+  network 172.22.2.47 mask 255.255.255.255
+  network 172.22.2.48 mask 255.255.255.255
+  network 172.22.2.50 mask 255.255.255.255
+  network 172.22.2.52 mask 255.255.255.255
+  network 172.22.2.68 mask 255.255.255.255
+  network 172.22.2.145 mask 255.255.255.255
+  no auto-summary
+  no synchronization
+ exit-address-family
+!
+route outside 0.0.0.0 0.0.0.0 219.65.72.153 1
+route Trillion_Dollars-vti 10.0.3.165 255.255.255.255 219.65.72.153 1
+route Trillion_Dollars-vti 10.0.129.105 255.255.255.255 219.65.72.153 1
+route Trillion_Dollars-vti 10.0.133.146 255.255.255.255 219.65.72.153 1
+route Trillion_Dollars-vti 10.0.135.79 255.255.255.255 219.65.72.153 1
+route Trillion_Dollars-vti 10.0.135.235 255.255.255.255 219.65.72.153 1
+route Trillion_Dollars-vti 10.0.140.185 255.255.255.255 219.65.72.153 1
+route Trillion_Dollars-vti 10.0.141.143 255.255.255.255 219.65.72.153 1
+route Trillion_Dollars-vti 10.0.143.207 255.255.255.255 219.65.72.153 1
+route Trillion_Dollars-vti 10.0.147.65 255.255.255.255 219.65.72.153 1
+route Trillion_Dollars-vti 10.0.165.239 255.255.255.255 219.65.72.153 1
+timeout xlate 3:00:00
+timeout pat-xlate 0:00:30
+timeout conn 1:00:00 half-closed 0:10:00 udp 0:02:00 sctp 0:02:00 icmp 0:00:02
+timeout sunrpc 0:10:00 h323 0:05:00 h225 1:00:00 mgcp 0:05:00 mgcp-pat 0:05:00
+timeout sip 0:30:00 sip_media 0:02:00 sip-invite 0:03:00 sip-disconnect 0:02:00
+timeout sip-provisional-media 0:02:00 uauth 0:05:00 absolute
+timeout tcp-proxy-reassembly 0:01:00
+timeout floating-conn 0:00:00
+timeout conn-holddown 0:00:15
+timeout igp stale-route 0:01:10
+user-identity default-domain LOCAL
+aaa authentication ssh console LOCAL 
+aaa authentication http console LOCAL 
+aaa authorization command LOCAL 
+aaa authentication login-history
+http server enable
+http 192.168.1.0 255.255.255.0 management
+http 172.22.2.0 255.255.255.0 inside
+snmp-server group snmpgroup v3 auth 
+snmp-server group snmpgroup1 v3 priv 
+snmp-server user abcsnmp snmpgroup1 v3 engineID 80000009fe6f60a0cf2de171b95e25299f16f3c2efcd5885e1 encrypted auth sha 08:75:42:2d:fd:48:61:e9:65:44:d8:c5:cc:46:00:de:3a:db:16:78 priv aes 256 c5:a8:ce:47:e2:d8:7d:4c:1b:24:ce:32:1d:18:43:db:d6:64:ca:e0:5f:fc:c4:3b:68:81:57:ca:01:4c:9f:0d 
+snmp-server host inside 172.22.2.73 community abcsnmp123 version 2c
+snmp-server host inside 172.22.2.52 version 3 abcsnmp
+no snmp-server location
+no snmp-server contact
+snmp-server community NNMpass@123
+snmp-server enable traps syslog
+snmp-server enable traps ipsec start stop
+snmp-server enable traps entity config-change fru-insert fru-remove fan-failure power-supply power-supply-presence cpu-temperature chassis-temperature power-supply-temperature chassis-fan-failure
+snmp-server enable traps memory-threshold
+snmp-server enable traps interface-threshold
+snmp-server enable traps remote-access session-threshold-exceeded
+snmp-server enable traps connection-limit-reached
+snmp-server enable traps cpu threshold rising
+snmp-server enable traps ikev2 start stop
+snmp-server enable traps nat packet-discard
+sysopt connection tcpmss 1379
+crypto ipsec ikev1 transform-set AAA_Mumbai esp-aes esp-sha-hmac 
+crypto ipsec ikev1 transform-set HDAAEGO]=_MumbaiDR esp-aes-256 esp-sha-hmac 
+crypto ipsec ikev1 transform-set Khajane_Mumbai esp-aes-256 esp-sha-hmac 
+crypto ipsec ikev1 transform-set veaanta_Orissa esp-3des esp-md5-hmac 
+crypto ipsec ikev1 transform-set Aaeamex esp-aes-256 esp-sha-hmac 
+crypto ipsec ikev1 transform-set Dalmia_Noida esp-aes-256 esp-sha-hmac 
+crypto ipsec ikev1 transform-set HFC_Mum esp-aes-256 esp-sha-hmac 
+crypto ipsec ikev1 transform-set aaaT_CSOC_Defence esp-aes-256 esp-sha-hmac 
+crypto ipsec ikev1 transform-set Amraaaa_Bangladesh esp-aes-256 esp-sha-hmac 
+crypto ipsec ikev1 transform-set Lupin_Mumbai esp-3des esp-md5-hmac 
+crypto ipsec ikev1 transform-set Reaaare_Gurgaon esp-aes-256 esp-sha-hmac 
+crypto ipsec ikev1 transform-set aaaaT_HEIC1 esp-3des esp-md5-hmac 
+crypto ipsec ikev2 ipsec-proposal aa_Conn
+ protocol esp encryption aes-256
+ protocol esp integrity sha-256
+crypto ipsec ikev2 ipsec-proposal L&T_Powai
+ protocol esp encryption aes-256
+ protocol esp integrity sha-512 sha-256
+crypto ipsec ikev2 ipsec-proposal DR_VWANAZ
+ protocol esp encryption aes-256
+ protocol esp integrity sha-256
+crypto ca trustpoint SSL-2025
+ enrollment terminal
+ fqdn cyberprotectioncentre.abc.in
+ subject-name CN=cyberprotectioncentre.abc.in,O=PricewaterhouseCoopers IT Services Limited,C=US,St=Florida,L=Tampa
+ keypair SSL-Keypair-2025
+ crl configure
+crypto ca trustpool policy
+crypto ca certificate chain ASDM_TrustPoint1
+ certificate ca 672bb1d996ed7aaa43c0865533070203
+    3082035c 30820244 a0030201 02021067 2bb8d996 ed7da443 c0865533 07020330 
+    0d06092a 864886f7 0d01010b 0500303f 31133011 060a0992 268993f2 2c640119 
+    1603636f 6d311330 11060a09 92268993 f22c6401 19160370 77633113 30110603 
+    55040313 0a507743 20526f6f 742d3230 1e170d31 35303632 32323031 3033375a 
+    170d3335 30363232 32303130 33375a30 3f311330 11060a09 92268993 f22c6401 
+    19160363 6f6d3113 3011060a 09922689 93f22c64 01191603 70776331 13301106 
+    03550403 130a5077 4320526f 6f742d32 30820122 300d0609 2a864886 f70d0101 
+    01050003 82010f00 3082010a 02820101 009c9403 e9f2cb86 401b974e 4d8bfaf8 
+    0b806db0 26281ef0 2ad23fcf 03a7c83a 8348d866 9c4ff2e1 c322e55d 24aa8703 
+    0b5e76ca 25088431 8933b565 0a8549e8 5719459b dd6ce257 bcffc34b 3c073ede 
+    3beb5b78 e681991f b56e0bbf 63cbc8ad dcac2e54 98a412da b079b58a 3275b823 
+    b4fcaff7 37e3d71b 854998d5 78e89d96 88b1ae39 6161d428 afade314 d983147d 
+    6a316a84 223998fb 083e0d82 920cdd5d fb0a1462 a1ff5ff0 449b1b3a ffa88944 
+    6be35aff c9b60c44 db46822f 3383dd51 bbf35b65 fa627d89 9be096b0 88152745 
+    a97f359e 6dcbc444 37611d23 de0c76fc 6f8de305 34882086 5e4cab77 9a2228da 
+    164e2d70 c35e45cf 269f294f 8faac992 25020301 0001a354 3052300b 0603551d 
+    0f040403 02018630 12060355 1d130101 ff040830 060101ff 02010230 1d060355 
+    1d0e0416 0414d734 a9a3c94d de822306 b158c6d2 87bbbb91 dbd53010 06092b06 
+    01040182 37150104 03020100 300d0609 2a864886 f70d0101 0b050003 82010100 
+    2ca747c2 42436e81 8a63d056 7ab1686a 1e295ab2 6850b70f 39b89b87 90ce8d08 
+    5dc57da8 d045fcbf f41ebe47 be651215 e145e7c3 812563d1 d7225da0 4e25ed71 
+    e26aafc4 44c32ef1 42005b99 56a93437 00f3a891 1705f0fa ccf4f622 cf78b7ef 
+    e13060fb 11ce0805 26af18c7 66ee63ba 75e7fd22 09b8dfa3 7704320d 3281bdd9 
+    3d23a251 78637a34 e257fc70 e3103dd5 6bb371f9 7fafabf1 9b935dc1 5a4587a0 
+    c95c8d93 4c2251e5 685ffa28 719d3829 99507830 dd729a90 ce65254f ba6b562b 
+    c7b17a96 0be4ce20 cc9a9278 f072f384 45a39536 9efd16d8 66bc0cc0 b628275f 
+    657e4761 b05258aa cea09d91 254a78d7 e00d05ea 24ac6ea5 a6921d9a 9a349cfe
+  quit
+crypto ikev1 policy 20
+ authentication pre-share
+ encryption aes
+ hash sha
+ group 5
+ lifetime 86400
+telnet 10.33.0.4 255.255.255.255 outside
+telnet timeout 5
+no ssh stricthostkeycheck
+ssh timeout 5
+ssh version 1 2
+ssh key-exchange group dh-group1-sha1
+ssh 172.22.2.0 255.255.255.0 inside
+console timeout 5
+!
+tls-proxy maximum-session 1000
+!
+threat-detection basic-threat
+threat-detection statistics
+threat-detection statistics tcp-intercept rate-interval 30 burst-rate 400 average-rate 200
+ntp server 172.22.2.6 source inside prefer
+ssl server-version tlsv1.2 dtlsv1.2
+ssl client-version tlsv1.2
+ssl cipher default custom "AES128-SHA:AES256-SHA:AES128-SHA256:AES256-SHA256"
+ssl cipher tlsv1 custom "AES128-SHA:AES256-SHA:AES128-SHA256:AES256-SHA256"
+ssl cipher tlsv1.1 custom "AES128-SHA:AES256-SHA:AES128-SHA256:AES256-SHA256"
+ssl cipher tlsv1.2 custom "AES128-SHA:AES256-SHA:AES128-SHA256:AES256-SHA256"
+ssl cipher dtlsv1 custom "AES128-SHA:AES256-SHA:AES128-SHA256:AES256-SHA256"
+ssl trust-point ASDM_TrustPoint4
+ssl trust-point SSL-2025 inside
+ssl trust-point SSL-2025 outside
+ssl trust-point SSL-2025 DMZ_PRIMARY
+ssl trust-point SSL-2025 spanport
+webvpn
+ enable outside
+ hsts
+  enable
+  max-age 31536000
+  include-sub-domains
+  no preload
+ hostscan image disk0:/hostscan_4.9.02028-k9.pkg
+ anyconnect image disk0:/anyconnect-win-4.3.02039-k9.pkg 1
+ anyconnect profiles SOC_AnyConnect_client_profile disk0:/SOC_AnyConnect_client_profile.xml
+ anyconnect enable
+ tunnel-group-list enable
+ smart-tunnel list RDP RDP mstsc.exe platform windows
+ smart-tunnel network RDP ip 172.22.2.0 255.255.255.0
+ cache
+  disable
+ error-recovery disable
+ hostscan data-limit 3000
+group-policy DfltGrpPolicy attributes
+group-policy GroupPolicy_SOC_AnyConnect internal
+group-policy GroupPolicy_SOC_AnyConnect attributes
+ wins-server value 10.31.8.101
+ dns-server value 10.31.8.111 10.31.8.101
+ vpn-tunnel-protocol ssl-client 
+ split-tunnel-policy tunnelspecified
+ split-tunnel-network-list value VPNacl
+ default-domain value IN.nam.ad.abcinternal.com
+ split-dns value abccpc.in
+ webvpn
+group-policy bOAT_2 attributes
+ vpn-tunnel-protocol ikev2 
+dynamic-access-policy-record Temination
+ action terminate
+dynamic-access-policy-record DfltAccessPolicy
+username schaaaadhury138 password $sha512$5000$t0fjcS7eNZO7V1pLxdtLrw==$Jvh0wZJknF0nXIeI04DxCw== pbkdf2
+username schoudhury138 attributes
+ service-type remote-access
+username ssaaakar371 password $sha512$5000$kP9iOAKWuxpDAM208vZpMw==$6MFJ7om1rArBWMXCbEzmAg== pbkdf2
+username ssarkar371 attributes
+ service-type remote-access
+username rbhaaadani008 password $sha512$5000$2ywJrk3X6A5fLXD0UWCgvA==$kwXKu91C8uZ5GsU4GithVA== pbkdf2
+username rbhaadani008 attributes
+ service-type remote-access
+username schakaarabor339 password $sha512$5000$IiiI8oPuGr3owqHELf9tFw==$K8ajMK0wmm5Tw6ERSH/2gw== pbkdf2
+username schakraabor339 attributes
+ service-type remote-access
+username gguptaaa094 password $sha512$5000$bwkWpQwo74Db3vTkvBF7VA==$WWdEaDPXgqpxNAgaEH0w/g== pbkdf2
+username gaagupta094 attributes
+ service-type remote-access
+username aarya043 password $sha512$5000$ip45Fye0hRvOp5fH4yWITg==$vwNM46FsmwV/GX5lhnpG+Q== pbkdf2
+username aarya043 attributes
+ service-type remote-access
+tunnel-group SOC_AnyConnect type remote-access
+tunnel-group SOC_AnyConnect general-attributes
+ address-pool SOC_VPN_DHCP
+ default-group-policy GroupPolicy_SOC_AnyConnect
+tunnel-group SOC_AnyConnect webvpn-attributes
+ authentication aaa certificate
+ group-alias SOC_AnyConnect enable
+ group-url https://14.142.43.102/SOC_VPN enable
+tunnel-group 14.143.201.1 type ipsec-l2l
+tunnel-group 14.143.201.1 ipsec-attributes
+ ikev2 remote-authentication pre-shared-key W0nderdream@2022
+ ikev2 local-authentication pre-shared-key W0nderdream@2022
+tunnel-group 203.199.61.1 type ipsec-l2l
+tunnel-group 203.199.61.1 ipsec-attributes
+ ikev1 pre-shared-key ^*s[jB24[;%z#Mf
+tunnel-group 115.113.145.77 type ipsec-l2l
+tunnel-group 115.113.145.77 ipsec-attributes
+ ikev2 remote-authentication pre-shared-key C05m05!wert@retdwefdsdre
+ ikev2 local-authentication pre-shared-key C05m05!wert@retdwefdsdre
+!
+class-map SFR
+ match access-list SFR
+class-map global-class
+ match access-list global_mpc
+class-map inspection_default
+ match default-inspection-traffic
+!
+service-policy global-policy global
+service-policy SFR interface inside
+service-policy SFR interface outside
+privilege cmd level 3 mode exec command perfmon
+privilege cmd level 5 mode exec command dir
+privilege cmd level 3 mode exec command ping
+privilege cmd level 3 mode exec command who
+privilege cmd level 3 mode exec command logging
+privilege cmd level 3 mode exec command failover
+privilege cmd level 3 mode exec command vpn-sessiondb
+privilege cmd level 3 mode exec command packet-tracer
+privilege cmd level 5 mode exec command export
+privilege show level 5 mode exec command import
+privilege show level 5 mode exec command running-config
+privilege show level 3 mode exec command reload
+privilege show level 3 mode exec command mode
+privilege show level 3 mode exec command firewall
+privilege show level 3 mode exec command asp
+privilege show level 3 mode exec command cpu
+privilege show level 3 mode exec command interface
+privilege clear level 3 mode configure command aaa-server
+prompt hostname context 
+no call-home reporting anonymous
+Cryptochecksum:b834cbca9cfe0b734f1406b1f3825558
+: end
+
+
+INPRJ-CCU-SOCInt01# exit
+
+Logoff
