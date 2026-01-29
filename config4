@@ -1,0 +1,201 @@
+=~=~=~=~=~=~=~=~=~=~=~= PuTTY log 2024.12.03 15:38:33 =~=~=~=~=~=~=~=~=~=~=~=
+
+
+
+
+
+ADANI-RENEWABLE-S...#ter data
+[KADANI-RENEWABLE-S...#ter datadump 
+ADANI-RENEWABLE-S...#ter datadump 
+
+ADANI-RENEWABLE-S...#sh run
+
+config-file-header
+ADANI-RENEWABLE-SANDHUA-GATE1
+v2.5.5.47 / RTESLA2.5.5_930_364_286
+CLI v1.0
+file SSD indicator encrypted
+@
+ssd-control-start
+ssd config
+ssd file passphrase control unrestricted
+no ssd file integrity control
+ssd-control-end cb0a3fdb1f3a1af4e4430033719968c0
+!
+!
+unit-type-control-start
+unit-type unit 1 network gi uplink none
+unit-type-control-end
+!
+vlan database
+vlan 10,20,40,50,60
+exit
+voice vlan oui-table add 0001e3 Siemens_AG_phone
+voice vlan oui-table add 00036b Cisco_phone
+voice vlan oui-table add 00096e Avaya
+voice vlan oui-table add 000fe2 H3C_Aolynk
+voice vlan oui-table add 0060b9 Philips_and_NEC_AG_phone
+voice vlan oui-table add 00d01e Pingtel_phone
+voice vlan oui-table add 00e075 Polycom/Veritel_phone
+voice vlan oui-table add 00e0bb 3Com_phone
+bonjour interface range vlan 1
+hostname ADANI-RENEWABLE-SANDHUA-GATE1
+ip http authentication aaa login-authentication tacacs
+aaa authentication login authorization SSH tacacs local
+aaa authentication enable authorization SSH tacacs enable
+aaa authentication login authorization default tacacs enable
+aaa authentication enable default tacacs enable
+aaa accounting login start-stop group tacacs+
+line ssh
+login authentication SSH
+enable authentication SSH
+password da39a3ee5e6b4b0d3255bfef95601890afd80709 encrypted
+exit
+username Cisco password encrypted 2816a55167314f806119617ae5af677d29f9aee0 privilege 15
+username epsilon password encrypted b5fa5ba6630e9f7b2d998398f5159321c1aab6e1 privilege 15
+username SNXT-ADANI-NW-L1 password encrypted cdec906e5f41301414284569d1338305049b520f privilege 7
+username SNXT-ADANI-NW-L2 password encrypted 647a94faa4c9d67e636ca71e5a22afb724e4966f privilege 15
+username SNXT-ADANI-NW-L3 password encrypted ad257bea86885ed5ac61adbad16fc119940ab4a1 privilege 15
+ip ssh server
+ip ssh password-auth
+snmp-server server
+snmp-server community D@bel!a=K2)r0tI rw view DefaultSuper
+snmp-server community D@bel!a=K2)r0tI ro 172.16.56.0 mask 255.255.255.0 view Default
+snmp-server host 10.3.168.81 traps version 2c D@bel!a=K2)r0tI
+snmp-server host 10.6.127.121 traps version 2c D@bel!a=K2)r0tI
+snmp-server host 10.80.9.96 traps version 2c D@bel!a=K2)r0tI
+snmp-server host 10.80.9.230 traps version 2c D@bel!a=K2)r0tI
+snmp-server host 10.81.244.35 traps version 2c D@bel!a=K2)r0tI
+snmp-server host 10.81.244.36 traps version 2c D@bel!a=K2)r0tI
+snmp-server host 172.16.56.128 traps version 2c D@bel!a=K2)r0tI
+snmp-server host 172.16.56.141 traps version 2c D@bel!a=K2)r0tI
+snmp-server host 172.16.56.146 traps version 2c D@bel!a=K2)r0tI
+snmp-server host 172.16.56.153 traps version 2c D@bel!a=K2)r0tI
+snmp-server host 192.168.1.225 traps version 2c D@bel!a=K2)r0tI
+no ip http server
+no ip http secure-server
+tacacs-server host 10.3.140.12 priority 2
+tacacs-server host 10.80.17.17 priority 1
+encrypted tacacs-server key AR0EvVLMGAD24At8AbZCRXJgLKYwPRAx3qYDTZqk8Go=
+tacacs-server host source-interface vlan 10
+sntp server 10.3.146.59
+sntp server 10.3.146.60
+sntp source-interface vlan 10
+ip telnet server
+!
+interface vlan 10
+ ip address 10.206.134.4 255.255.255.240
+!
+interface GigabitEthernet1
+ switchport access vlan 20
+!
+interface GigabitEthernet2
+ switchport access vlan 20
+!
+interface GigabitEthernet3
+ switchport access vlan 20
+!
+interface GigabitEthernet4
+ switchport access vlan 20
+!
+interface GigabitEthernet5
+ description ***CCTV***
+ switchport access vlan 40
+!
+interface GigabitEthernet6
+ description ***CCTV***
+ switchport access vlan 40
+!
+interface GigabitEthernet7
+ switchport access vlan 40
+!
+interface GigabitEthernet8
+ switchport access vlan 40
+!
+interface GigabitEthernet9
+ spanning-tree link-type point-to-point
+ switchport mode trunk
+ macro description switch
+ !next command is internal.
+ macro auto smartport dynamic_type switch
+!
+interface GigabitEthernet10
+ spanning-tree link-type point-to-point
+ switchport mode trunk
+ macro description switch
+ !next command is internal.
+ macro auto smartport dynamic_type switch
+!
+exit
+ip default-gateway 10.206.134.1
+ADANI-RENEWABLE-S...#sh inv
+
+% missing mandatory parameter
+ADANI-RENEWABLE-S...#
+
+[KADANI-RENEWABLE-S...#sh inv
+[KADANI-RENEWABLE-S...#sh inventory 
+
+NAME: "1"   DESCR: "SG350-10P 10-Port Gigabit PoE Managed Switch"   
+PID: SG350-10P-K9   VID: V08   SN: PSZ25241HC6   
+
+ADANI-RENEWABLE-S...#sh ve
+[KADANI-RENEWABLE-S...#sh version 
+
+Active-image: flash://system/images/image1.bin
+  Version: 2.5.5.47
+  MD5 Digest: ff7132e875fd9ac0699a4b7bf04087c4
+  Date: 06-May-2020
+  Time: 17:32:16
+Inactive-image: flash://system/images/_image1.bin
+  Version: 2.5.5.47
+  MD5 Digest: ff7132e875fd9ac0699a4b7bf04087c4
+  Date: 06-May-2020
+  Time: 17:32:16
+ADANI-RENEWABLE-S...#sh int
+[KADANI-RENEWABLE-S...#sh interfaces sta
+[KADANI-RENEWABLE-S...#sh interfaces status 
+
+                                             Flow Link          Back   Mdix
+Port     Type         Duplex  Speed Neg      ctrl State       Pressure Mode
+-------- ------------ ------  ----- -------- ---- ----------- -------- -------
+gi1      1G-Copper      --      --     --     --  Down           --     --    
+gi2      1G-Copper    Full    1000  Enabled  Off  Up          Disabled On     
+gi3      1G-Copper      --      --     --     --  Down           --     --    
+gi4      1G-Copper      --      --     --     --  Down           --     --    
+gi5      1G-Copper      --      --     --     --  Down           --     --    
+gi6      1G-Copper      --      --     --     --  Down           --     --    
+gi7      1G-Copper    Full    100   Enabled  Off  Up          Disabled Off    
+gi8      1G-Copper    Full    100   Enabled  Off  Up          Disabled Off    
+gi9      1G-Combo-C     --      --     --     --  Down           --     --    
+gi10     1G-Combo-C   Full    1000  Enabled  Off  Up          Disabled Off    
+
+                                          Flow    Link        
+Ch       Type    Duplex  Speed  Neg      control  State       
+-------- ------- ------  -----  -------- -------  ----------- 
+Po1         --     --      --      --       --    Not Present 
+Po2         --     --      --      --       --    Not Present 
+Po3         --     --      --      --       --    Not Present 
+Po4         --     --      --      --       --    Not Present 
+Po5         --     --      --      --       --    Not Present 
+Po6         --     --      --      --       --    Not Present 
+Po7         --     --      --      --       --    Not Present 
+Po8         --     --      --      --       --    Not Present 
+ADANI-RENEWABLE-S...#sh cd
+[KADANI-RENEWABLE-S...#sh cdp ne de
+
+---------------------------------------------
+Device-ID: 10f92020546d
+Advertisement version: 2
+Platform: Cisco SG350-10P (PID:SG350-10P-K9)-VSD
+Capabilities: Router Switch IGMP 
+Interface: gi10, Port ID (outgoing port): gi10
+Holdtime: 135
+Version: 2.5.9.16
+Duplex: full
+Native VLAN: 1
+SysName: ADANI-RENWEABLE-SANDHUA-ACCESS-SW5
+Addresses:
+          IP 10.206.134.10
+          IPv6 fe80::12f9:20ff:fe20:546d (link-local)
+ADANI-RENEWABLE-S...#
