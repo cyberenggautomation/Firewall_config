@@ -1,0 +1,954 @@
+    1 |
+    2 |Building configuration...
+    3 |
+    4 |  
+    5 |  
+    6 |Current configuration : 36264 bytes
+    7 |!
+    8 |! Last configuration change at 23:23:31 IST Wed Dec 4 2024 by pratik.patel
+    9 |! NVRAM config last updated at 23:24:52 IST Wed Dec 4 2024 by pratik.patel
+   10 |!
+   11 |version 15.9
+   12 |service nagle
+   13 |no service pad
+   14 |service tcp-keepalives-in
+   15 |service tcp-keepalives-out
+   16 |service timestamps debug datetime msec localtime show-timezone
+   17 |service timestamps log datetime msec localtime show-timezone
+   18 |service password-encryption
+   19 |service counters max age 5
+   20 |!
+   21 |hostname RENEABLE_NALWAR_CHITAPUR_841
+   22 |!
+   23 |boot-start-marker
+   24 |boot system flash flash:c800m-universalk9-mz.SPA.159-3.M9.bin
+   25 |boot-end-marker
+   26 |!
+   27 |!
+   28 |security passwords min-length 8 xxxxxxxx
+   29 |logging buffered 5000000
+   30 |logging console informational
+   31 |enable secret 9 xxxxxxxx
+   32 |!
+   33 |aaa new-model
+   34 |!
+   35 |!
+   36 |aaa group server tacacs+ WAN_GROUP
+   37 | server name SERVER01
+   38 | server name SERVER02
+   39 |!
+   40 |aaa authentication login aaa group WAN_GROUP local
+   41 |aaa authentication enable default group WAN_GROUP enable
+   42 |aaa authorization console
+   43 |aaa authorization config-commands
+   44 |aaa authorization exec aaa group WAN_GROUP local 
+   45 |aaa authorization commands 15 aaa group WAN_GROUP local 
+   46 |aaa accounting exec default start-stop group WAN_GROUP
+   47 |aaa accounting exec 15 start-stop group WAN_GROUP
+   48 |aaa accounting exec 0 start-stop group WAN_GROUP
+   49 |aaa accounting exec 1 start-stop group WAN_GROUP
+   50 |aaa accounting commands 0 default start-stop group WAN_GROUP
+   51 |aaa accounting commands 1 default start-stop group WAN_GROUP
+   52 |aaa accounting commands 15 default start-stop group WAN_GROUP
+   53 |aaa accounting system default start-stop group WAN_GROUP
+   54 |!
+   55 |!
+   56 |!
+   57 |!
+   58 |!
+   59 |!
+   60 |aaa session-id common
+   61 |clock timezone IST 5 30
+   62 |!
+   63 |crytpo pki xxxxxxx
+   64 | enrollment selfsigned
+   65 | subject-name xxxxxxxx
+   66 | revocation-check none
+   67 | rsakeypair TP-self-signed- xxxxxxxx
+   68 |!
+   69 |crytpo pki xxxxxxx
+   70 | enrollment mode ra
+   71 | enrollment terminal
+   72 | usage ssl-client
+   73 | revocation-check crl none
+   74 | source interface Loopback80
+   75 |!
+   76 |!
+   77 |crypto pki certificate chain xxxxxxx
+   78 | certificate self-signed xxxxxxxx
+   79 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+   80 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+   81 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+   82 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+   83 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+   84 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+   85 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+   86 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+   87 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+   88 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+   89 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+   90 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+   91 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+   92 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+   93 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+   94 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+   95 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+   96 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+   97 |quit
+   98 |crypto pki certificate chain xxxxxxx
+   99 | certificate ca xxxxxxxx
+  100 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+  101 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+  102 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+  103 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+  104 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+  105 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+  106 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+  107 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+  108 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+  109 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+  110 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+  111 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+  112 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+  113 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+  114 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+  115 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+  116 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+  117 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+  118 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+  119 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+  120 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+  121 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+  122 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+  123 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+  124 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+  125 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+  126 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+  127 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+  128 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+  129 |  xxxx  xxxxx  xxxx  xxxx  xxxx
+  130 |quit
+  131 |no ip source-route
+  132 |!
+  133 |!
+  134 |!
+  135 |!
+  136 |!
+  137 |!
+  138 |!
+  139 |!
+  140 |!
+  141 |!
+  142 |
+  143 |
+  144 |!
+  145 |ip dhcp bootp ignore
+  146 |!
+  147 |!
+  148 |!
+  149 |no ip bootp server
+  150 |ip cef
+  151 | login xxxxxx
+  152 | login xxxxxx
+  153 |no ipv6 cef
+  154 |!
+  155 |!
+  156 |flow record IP_Accounting
+  157 | description To Observe IPv4 Traffic
+  158 | match ipv4 source address
+  159 | match ipv4 destination address
+  160 | match ipv4 tos
+  161 | match ipv4 protocol
+  162 | match transport source-port
+  163 | match transport destination-port
+  164 | collect interface input
+  165 | collect interface output
+  166 | collect counter bytes long
+  167 | collect counter packets long
+  168 | collect transport tcp flags
+  169 | collect timestamp sys-uptime first
+  170 | collect timestamp sys-uptime last
+  171 | collect application name
+  172 |!
+  173 |!
+  174 |flow exporter x.x.x.x
+  175 | destination x.x.x.x
+  176 | transport udp 6007
+  177 |!
+  178 |!
+  179 |flow monitor IP_Utilisation
+  180 | description To Observe IPv4 Traffic
+  181 | record IP_Accounting
+  182 |!
+  183 |!
+  184 |multilink bundle-name authenticated
+  185 |!
+  186 |no virtual-template snmp
+  187 |license udi pid C841M-4X/K9 sn FGL2701L44D
+  188 |!
+  189 |!
+  190 |archive
+  191 | log config
+  192 |  logging enable
+  193 | path flash:configuration_backup
+  194 | maximum 8
+  195 | write-memory
+  196 | time-period 1440
+  197 |file privilege 7
+  198 |username ruser privilege 7 secret xxxxxx 
+  199 |username idc privilege 15 secret xxxxxx 
+  200 |username vauser privilege 15 secret xxxxxx 
+  201 |username python privilege 15 secret xxxxxx 
+  202 |username TCTSL-ADANI-L1 privilege 7 secret xxxxxx 
+  203 |username TCTSL-ADANI-L2 privilege 15 secret xxxxxx 
+  204 |username TCTSL-ADANI-L3 privilege 15 secret xxxxxx 
+  205 |!
+  206 |redundancy
+  207 |!
+  208 |!
+  209 |!
+  210 |!
+  211 |no cdp run
+  212 |!
+  213 |!
+  214 |class-map match-any VIDEO_IN
+  215 | match access-group name VIDEO-Traffic
+  216 |class-map match-any VOICE_IN
+  217 | match access-group name VOICE-Traffic
+  218 |class-map match-all VIDEO_OUT
+  219 | match dscp af41 
+  220 |class-map match-all VOICE_OUT
+  221 | match dscp ef 
+  222 |class-map match-any VIDEO
+  223 | match access-group name VIDEO-Traffic
+  224 |class-map match-any VOICE
+  225 | match access-group name VOICE-Traffic
+  226 |class-map match-any DEFAULT_CLASS
+  227 | match any 
+  228 |class-map match-all DEFAULT_OUT
+  229 | match dscp af21 
+  230 |!
+  231 |policy-map ADANI-COS
+  232 | class VOICE
+  233 |  bandwidth percent 25 
+  234 | class VIDEO
+  235 |  bandwidth percent 25 
+  236 |policy-map EGRESS_CHILD
+  237 | class VOICE_OUT
+  238 |  bandwidth percent 25 
+  239 | class VIDEO_OUT
+  240 |  bandwidth percent 25 
+  241 | class DEFAULT_OUT
+  242 |policy-map SERVICE_POLICY_AIRTEL_OUT
+  243 | class class-default
+  244 |  shape average 4096000 768000  
+  245 |   service-policy EGRESS_CHILD
+  246 |policy-map INGRESS
+  247 | class VOICE_IN
+  248 |  set dscp ef
+  249 | class VIDEO_IN
+  250 |  set dscp af41
+  251 | class DEFAULT_CLASS
+  252 |  set dscp af21
+  253 |policy-map ADANI-COS-PARENT
+  254 | class class-default
+  255 |  shape average 4096000 768000 1536000 
+  256 |   service-policy ADANI-COS
+  257 |!
+  258 |! 
+  259 |!
+  260 |!
+  261 |!
+  262 |!
+  263 |!
+  264 |!
+  265 |!
+  266 |!
+  267 |!
+  268 |interface Loopback80
+  269 | description ## MGMT ##
+  270 | ip address x.x.x.x x.x.x.x
+  271 |!
+  272 |interface GigabitEthernet0/0
+  273 | no ip address
+  274 |!
+  275 |interface GigabitEthernet0/1
+  276 | no ip address
+  277 |!
+  278 |interface GigabitEthernet0/2
+  279 | description ### FIREWALL ###
+  280 | switchport access vlan 100
+  281 | switchport mode access
+  282 | no ip address
+  283 |!
+  284 |interface GigabitEthernet0/3
+  285 | no ip address
+  286 |!
+  287 |interface GigabitEthernet0/4
+  288 | description ### Airtel MPLS - 4 MBPS CKT:10339046 ###
+  289 | ip address x.x.x.x x.x.x.x
+  290 | ip access-group BLOCK_ICMP_TIMESTAMPS in
+  291 | no ip redirects
+  292 | no ip unreachables
+  293 | no ip proxy-arp
+  294 | ip flow ingress
+  295 | ip flow egress
+  296 | load-interval 30
+  297 | duplex auto
+  298 | speed auto
+  299 | no cdp enable
+  300 | service-policy input INGRESS
+  301 | service-policy output SERVICE_POLICY_AIRTEL_OUT
+  302 |!
+  303 |interface GigabitEthernet0/5
+  304 | no ip address
+  305 | duplex auto
+  306 | speed auto
+  307 |!
+  308 |interface Vlan1
+  309 | no ip address
+  310 |!
+  311 |interface Vlan100
+  312 | description ### FIREWALL ###
+  313 | ip address x.x.x.x x.x.x.x
+  314 | ip access-group BLOCK_ICMP_TIMESTAMPS in
+  315 |!
+  316 |router ospf 1
+  317 | network x.x.x.x x.x.x.x area 0
+  318 | network x.x.x.x x.x.x.x area 0
+  319 | network x.x.x.x x.x.x.x area 0
+  320 | network x.x.x.x x.x.x.x area 0
+  321 |!
+  322 |router bgp 65333
+  323 | bgp log-neighbor-changes
+  324 | neighbor x.x.x.x remote-as 9730
+  325 | !
+  326 | address-family ipv4
+  327 |  network x.x.x.x mask x.x.x.x
+  328 |  network x.x.x.x mask x.x.x.x
+  329 |  network x.x.x.x mask x.x.x.x
+  330 |  network x.x.x.x mask x.x.x.x
+  331 |  network x.x.x.x mask x.x.x.x
+  332 |  network x.x.x.x mask x.x.x.x
+  333 |  network x.x.x.x mask x.x.x.x
+  334 |  network x.x.x.x mask x.x.x.x
+  335 |  network x.x.x.x mask x.x.x.x
+  336 |  neighbor x.x.x.x activate
+  337 |  neighbor x.x.x.x soft-reconfiguration inbound
+  338 |  neighbor x.x.x.x route-map AIRTEL_WAN_IN in
+  339 |  neighbor x.x.x.x route-map AIRTEL_WAN_OUT out
+  340 |  neighbor x.x.x.x filter-list 1 out
+  341 | exit-address-family
+  342 |!
+  343 |ip forward-protocol nd
+  344 |no ip http server
+  345 |ip http access-class 23
+  346 |no ip http secure-server
+  347 |ip http timeout-policy idle 60 life 86400 requests 10000
+  348 |ip http client source-interface Loopback80
+  349 |!
+  350 |ip as-path access-list 1 permit ^$
+  351 |ip flow-top-talkers
+  352 | top 20
+  353 | sort-by bytes
+  354 |!
+  355 |ip ftp source-interface Loopback80
+  356 |ip ftp username xxxxxxx
+  357 |ip ftp password 7 xxxxxxxx
+  358 |ip tftp source-interface Loopback80
+  359 |ip route x.x.x.x x.x.x.x x.x.x.x
+  360 |ip route x.x.x.x x.x.x.x x.x.x.x name TEMP
+  361 |ip route x.x.x.x x.x.x.x x.x.x.x
+  362 |ip route x.x.x.x x.x.x.x x.x.x.x
+  363 |ip route x.x.x.x x.x.x.x x.x.x.x
+  364 |ip route x.x.x.x x.x.x.x x.x.x.x
+  365 |ip route x.x.x.x x.x.x.x x.x.x.x
+  366 |ip route x.x.x.x x.x.x.x x.x.x.x
+  367 |ip tacacs source-interface Loopback80
+  368 |ip ssh source-interface Loopback80
+  369 |ip ssh version 2
+  370 |ip ssh server algorithm mac hmac-sha1
+  371 |ip ssh server algorithm kex diffie-hellman-group14-sha1
+  372 |!
+  373 |ip access-list standard MGMT_ACL
+  374 | permit x.x.x.x
+  375 | permit x.x.x.x
+  376 | permit x.x.x.x
+  377 | permit x.x.x.x
+  378 | permit x.x.x.x
+  379 | permit x.x.x.x
+  380 | permit x.x.x.x
+  381 | permit x.x.x.x
+  382 | permit x.x.x.x
+  383 | permit x.x.x.x
+  384 | permit x.x.x.x
+  385 | permit x.x.x.x
+  386 | permit x.x.x.x
+  387 | permit x.x.x.x
+  388 | permit x.x.x.x
+  389 | permit x.x.x.x
+  390 | permit x.x.x.x x.x.x.x
+  391 | permit x.x.x.x x.x.x.x
+  392 | permit x.x.x.x x.x.x.x
+  393 | permit x.x.x.x x.x.x.x
+  394 | permit x.x.x.x x.x.x.x
+  395 | permit x.x.x.x x.x.x.x
+  396 | permit x.x.x.x x.x.x.x
+  397 | permit x.x.x.x x.x.x.x
+  398 | permit x.x.x.x x.x.x.x
+  399 | permit x.x.x.x x.x.x.x
+  400 | permit x.x.x.x x.x.x.x
+  401 |!
+  402 |ip access-list extended BLOCK_ICMP_TIMESTAMPS
+  403 | deny   icmp any any timestamp-request
+  404 | deny   icmp any any timestamp-reply
+  405 | permit ip any any
+  406 |ip access-list extended VIDEO-Traffic
+  407 | permit udp any x.x.x.x x.x.x.x
+  408 | permit udp any x.x.x.x x.x.x.x
+  409 |ip access-list extended VOICE-Traffic
+  410 | permit udp any x.x.x.x x.x.x.x
+  411 | permit udp any x.x.x.x x.x.x.x
+  412 | permit udp any x.x.x.x x.x.x.x
+  413 | permit udp any x.x.x.x x.x.x.x
+  414 | permit udp any x.x.x.x x.x.x.x
+  415 | permit udp any x.x.x.x x.x.x.x
+  416 | permit udp any x.x.x.x x.x.x.x
+  417 | permit udp any x.x.x.x x.x.x.x
+  418 |ip access-list extended VTY_MGMT-ACL
+  419 | remark ### ARAVALI WAN Network ###
+  420 | permit tcp x.x.x.x x.x.x.x any eq 22
+  421 | remark ### Router MGMT Network ###
+  422 | permit tcp x.x.x.x x.x.x.x any eq 22
+  423 | remark ### GCP NMS Network ###
+  424 | permit tcp x.x.x.x x.x.x.x any eq 22
+  425 | remark ### GCP Network ###
+  426 | permit tcp x.x.x.x x.x.x.x any eq 22
+  427 | permit tcp host x.x.x.x any eq 22
+  428 | permit tcp host x.x.x.x any eq 22
+  429 | permit tcp host x.x.x.x any eq 22
+  430 | permit tcp host x.x.x.x any eq 22
+  431 | permit tcp host x.x.x.x any eq 22
+  432 | permit tcp host x.x.x.x any eq 22
+  433 | remark ### NOIDA Jump Server ###
+  434 | permit tcp host x.x.x.x any eq 22
+  435 | remark ### NOIDA BSNL WAN ###
+  436 | permit tcp x.x.x.x x.x.x.x any eq 22
+  437 | remark ### NOIDA VODAFONE WAN ###
+  438 | permit tcp x.x.x.x x.x.x.x any eq 22
+  439 | remark ### NOIDA AIRTEL WAN ###
+  440 | permit tcp x.x.x.x x.x.x.x any eq 22
+  441 | remark ### NOIDA TCL WAN ###
+  442 | permit tcp x.x.x.x x.x.x.x any eq 22
+  443 | remark ### ACH INTERNET ROUTER ###
+  444 | permit tcp host x.x.x.x any eq 22
+  445 | remark ### ACH INTERNET ROUTER ###
+  446 | permit tcp host x.x.x.x any eq 22
+  447 | remark ### ACH VA Server- ###
+  448 | permit ip host x.x.x.x any
+  449 | remark ### ACH TCL WAN ###
+  450 | permit tcp x.x.x.x x.x.x.x any eq 22
+  451 | remark ### ACH BSNL WAN ###
+  452 | permit tcp x.x.x.x x.x.x.x any eq 22
+  453 | remark ### ACH AIRTEL WAN ###
+  454 | permit tcp x.x.x.x x.x.x.x any eq 22
+  455 | remark ### ACH VODAFONE WAN ###
+  456 | permit tcp x.x.x.x x.x.x.x any eq 22
+  457 | remark ### ACH VA Server ###
+  458 | remark ### ACH VA Server-NEW ###
+  459 | permit ip host x.x.x.x any
+  460 | remark ### ACH PRIME Server ###
+  461 | permit tcp host x.x.x.x any eq 22
+  462 | remark ## DNA SERVER - ACH ##
+  463 | permit tcp host x.x.x.x any eq 22
+  464 | remark ### ACH PRIME Servers ###
+  465 | permit tcp host x.x.x.x any eq 22
+  466 | permit tcp host x.x.x.x any eq 22
+  467 | remark ### NDC VA Server ###
+  468 | permit tcp host x.x.x.x any eq 22
+  469 | remark ### VA SERVER - WINDOWS AWS ###
+  470 | permit tcp host x.x.x.x any eq 22
+  471 | remark ### VA SERVER - WINDOWS MIAL Scanner ###
+  472 | permit tcp host x.x.x.x any eq 22
+  473 | remark ### VA SERVER - WINDOWS Mundra Ports Scanner ###
+  474 | permit tcp host x.x.x.x any eq 22
+  475 | remark ### VA SERVER - WINDOWS ACH Scanner 2 ###
+  476 | remark ### VA SERVER - WINDOWS AEML Scanner ###
+  477 | permit tcp host x.x.x.x any eq 22
+  478 | remark ### VA SERVER - WINDOWS Azure Airport Scanner ###
+  479 | permit tcp host x.x.x.x any eq 22
+  480 | permit tcp x.x.x.x x.x.x.x any eq 22
+  481 | remark ### Azure Workspace ###
+  482 |ip access-list extended VTY_MGMT_ACL
+  483 | permit tcp host x.x.x.x any eq 22
+  484 | permit tcp host x.x.x.x any eq 22
+  485 | permit tcp host x.x.x.x any eq 22
+  486 | permit tcp host x.x.x.x any eq 22
+  487 | permit tcp host x.x.x.x any eq 22
+  488 | permit tcp host x.x.x.x any eq 22
+  489 | remark ## DNA SERVER - ACH ##
+  490 | permit tcp host x.x.x.x any eq 22
+  491 | remark ### ACH PRIME Servers ###
+  492 | permit tcp host x.x.x.x any eq 22
+  493 | permit tcp host x.x.x.x any eq 22
+  494 | permit tcp host x.x.x.x any eq 22
+  495 | remark ### NDC VA Server ###
+  496 | permit tcp host x.x.x.x any eq 22
+  497 | remark ### VA SERVER - WINDOWS AWS ###
+  498 | permit tcp host x.x.x.x any eq 22
+  499 | remark ### VA SERVER - WINDOWS MIAL Scanner ###
+  500 | permit tcp host x.x.x.x any eq 22
+  501 | remark ### VA SERVER - WINDOWS Mundra Ports Scanner ###
+  502 | permit tcp host x.x.x.x any eq 22
+  503 | remark ### VA SERVER - WINDOWS ACH Scanner 2 ###
+  504 | remark ### VA SERVER - WINDOWS AEML Scanner ###
+  505 | permit tcp host x.x.x.x any eq 22
+  506 | remark ### VA SERVER - WINDOWS Azure Airport Scanner ###
+  507 | permit tcp host x.x.x.x any eq 22
+  508 | remark ### ARAVALI WAN Network ###
+  509 | permit tcp x.x.x.x x.x.x.x any eq 22
+  510 | remark ### Router MGMT Network ###
+  511 | permit tcp x.x.x.x x.x.x.x any eq 22
+  512 | remark ### GCP NMS Network ###
+  513 | permit tcp x.x.x.x x.x.x.x any eq 22
+  514 | remark ### GCP Network ###
+  515 | permit tcp x.x.x.x x.x.x.x any eq 22
+  516 | remark ### NOIDA Jump Server ###
+  517 | permit tcp host x.x.x.x any eq 22
+  518 | remark ### NOIDA BSNL WAN ###
+  519 | permit tcp x.x.x.x x.x.x.x any eq 22
+  520 | remark ### NOIDA VODAFONE WAN ###
+  521 | permit tcp x.x.x.x x.x.x.x any eq 22
+  522 | remark ### NOIDA AIRTEL WAN ###
+  523 | permit tcp x.x.x.x x.x.x.x any eq 22
+  524 | remark ### NOIDA TCL WAN ###
+  525 | permit tcp x.x.x.x x.x.x.x any eq 22
+  526 | remark ### ACH INTERNET ROUTER ###
+  527 | permit tcp host x.x.x.x any eq 22
+  528 | remark ### ACH INTERNET ROUTER ###
+  529 | permit tcp host x.x.x.x any eq 22
+  530 | remark ### ACH TCL WAN ###
+  531 | permit tcp x.x.x.x x.x.x.x any eq 22
+  532 | remark ### ACH BSNL WAN ###
+  533 | permit tcp x.x.x.x x.x.x.x any eq 22
+  534 | remark ### ACH AIRTEL WAN ###
+  535 | permit tcp x.x.x.x x.x.x.x any eq 22
+  536 | remark ### ACH VODAFONE WAN ###
+  537 | permit tcp x.x.x.x x.x.x.x any eq 22
+  538 | remark ### ACH VA Server-1 ###
+  539 | remark ### ACH VA Server-NEW ###
+  540 | permit tcp x.x.x.x x.x.x.x any eq 22
+  541 | remark ### Azure Workspace ###
+  542 |!
+  543 |!
+  544 |ip prefix-list ACH_CORE seq 5 permit x.x.x.x/16
+  545 |ip prefix-list ACH_CORE seq 10 permit x.x.x.x/27
+  546 |ip prefix-list ACH_CORE seq 15 permit x.x.x.x/26
+  547 |ip prefix-list ACH_CORE seq 20 permit x.x.x.x/27
+  548 |ip prefix-list ACH_CORE seq 25 permit x.x.x.x/29
+  549 |ip prefix-list ACH_CORE seq 30 permit x.x.x.x/29
+  550 |ip prefix-list ACH_CORE seq 35 permit x.x.x.x/29
+  551 |!
+  552 |ip prefix-list DR_USER_APPLICATION seq 5 permit x.x.x.x/20
+  553 |ip prefix-list DR_USER_APPLICATION seq 10 permit x.x.x.x/24
+  554 |ip prefix-list DR_USER_APPLICATION seq 15 permit x.x.x.x/32
+  555 |ip prefix-list DR_USER_APPLICATION seq 20 permit x.x.x.x/19
+  556 |ip prefix-list DR_USER_APPLICATION seq 25 permit x.x.x.x/20
+  557 |!
+  558 |ip prefix-list LAN seq 15 permit x.x.x.x/32
+  559 |ip prefix-list LAN seq 20 permit x.x.x.x/32
+  560 |ip prefix-list LAN seq 25 permit x.x.x.x/27
+  561 |ip prefix-list LAN seq 30 permit x.x.x.x/26
+  562 |ip prefix-list LAN seq 35 permit x.x.x.x/26
+  563 |ip prefix-list LAN seq 40 permit x.x.x.x/27
+  564 |ip prefix-list LAN seq 45 permit x.x.x.x/27
+  565 |ip prefix-list LAN seq 50 permit x.x.x.x/27
+  566 |ip prefix-list LAN seq 55 permit x.x.x.x/29
+  567 |!
+  568 |ip prefix-list NOIDA_DC_SUBNETS seq 5 permit x.x.x.x/0
+  569 |ip prefix-list NOIDA_DC_SUBNETS seq 10 permit x.x.x.x/24
+  570 |ip prefix-list NOIDA_DC_SUBNETS seq 15 permit x.x.x.x/29
+  571 |ip prefix-list NOIDA_DC_SUBNETS seq 20 permit x.x.x.x/24
+  572 |ip prefix-list NOIDA_DC_SUBNETS seq 25 permit x.x.x.x/23
+  573 |ip prefix-list NOIDA_DC_SUBNETS seq 30 permit x.x.x.x/24
+  574 |ip prefix-list NOIDA_DC_SUBNETS seq 35 permit x.x.x.x/26
+  575 |ip prefix-list NOIDA_DC_SUBNETS seq 40 permit x.x.x.x/26
+  576 |ip prefix-list NOIDA_DC_SUBNETS seq 45 permit x.x.x.x/26
+  577 |ip prefix-list NOIDA_DC_SUBNETS seq 50 permit x.x.x.x/26
+  578 |ip prefix-list NOIDA_DC_SUBNETS seq 55 permit x.x.x.x/26
+  579 |ip prefix-list NOIDA_DC_SUBNETS seq 60 permit x.x.x.x/24
+  580 |ip prefix-list NOIDA_DC_SUBNETS seq 65 permit x.x.x.x/23
+  581 |ip prefix-list NOIDA_DC_SUBNETS seq 70 permit x.x.x.x/27
+  582 |ip prefix-list NOIDA_DC_SUBNETS seq 75 permit x.x.x.x/27
+  583 |ip prefix-list NOIDA_DC_SUBNETS seq 80 permit x.x.x.x/27
+  584 |ip prefix-list NOIDA_DC_SUBNETS seq 85 permit x.x.x.x/26
+  585 |ip prefix-list NOIDA_DC_SUBNETS seq 90 permit x.x.x.x/28
+  586 |ip prefix-list NOIDA_DC_SUBNETS seq 95 permit x.x.x.x/27
+  587 |ip prefix-list NOIDA_DC_SUBNETS seq 100 permit x.x.x.x/26
+  588 |ip prefix-list NOIDA_DC_SUBNETS seq 105 permit x.x.x.x/22
+  589 |ip prefix-list NOIDA_DC_SUBNETS seq 110 permit x.x.x.x/25
+  590 |ip prefix-list NOIDA_DC_SUBNETS seq 115 permit x.x.x.x/25
+  591 |ip prefix-list NOIDA_DC_SUBNETS seq 120 permit x.x.x.x/29
+  592 |ip prefix-list NOIDA_DC_SUBNETS seq 125 permit x.x.x.x/29
+  593 |ip prefix-list NOIDA_DC_SUBNETS seq 130 permit x.x.x.x/26
+  594 |ip prefix-list NOIDA_DC_SUBNETS seq 135 permit x.x.x.x/24
+  595 |ip prefix-list NOIDA_DC_SUBNETS seq 140 permit x.x.x.x/24
+  596 |ip prefix-list NOIDA_DC_SUBNETS seq 145 permit x.x.x.x/24
+  597 |ip prefix-list NOIDA_DC_SUBNETS seq 150 permit x.x.x.x/24
+  598 |ip prefix-list NOIDA_DC_SUBNETS seq 155 permit x.x.x.x/24
+  599 |ip prefix-list NOIDA_DC_SUBNETS seq 160 permit x.x.x.x/24
+  600 |ip prefix-list NOIDA_DC_SUBNETS seq 165 permit x.x.x.x/26
+  601 |ip prefix-list NOIDA_DC_SUBNETS seq 170 permit x.x.x.x/24
+  602 |ip prefix-list NOIDA_DC_SUBNETS seq 175 permit x.x.x.x/24
+  603 |ip prefix-list NOIDA_DC_SUBNETS seq 180 permit x.x.x.x/24
+  604 |ip prefix-list NOIDA_DC_SUBNETS seq 185 permit x.x.x.x/24
+  605 |ip prefix-list NOIDA_DC_SUBNETS seq 190 permit x.x.x.x/24
+  606 |ip prefix-list NOIDA_DC_SUBNETS seq 195 permit x.x.x.x/24
+  607 |ip prefix-list NOIDA_DC_SUBNETS seq 200 permit x.x.x.x/24
+  608 |ip prefix-list NOIDA_DC_SUBNETS seq 205 permit x.x.x.x/24
+  609 |ip prefix-list NOIDA_DC_SUBNETS seq 210 permit x.x.x.x/24
+  610 |ip prefix-list NOIDA_DC_SUBNETS seq 215 permit x.x.x.x/24
+  611 |ip prefix-list NOIDA_DC_SUBNETS seq 220 permit x.x.x.x/24
+  612 |ip prefix-list NOIDA_DC_SUBNETS seq 225 permit x.x.x.x/24
+  613 |ip prefix-list NOIDA_DC_SUBNETS seq 230 permit x.x.x.x/24
+  614 |ip prefix-list NOIDA_DC_SUBNETS seq 235 permit x.x.x.x/24
+  615 |ip prefix-list NOIDA_DC_SUBNETS seq 300 permit x.x.x.x/24
+  616 |ip prefix-list NOIDA_DC_SUBNETS seq 305 permit x.x.x.x/24
+  617 |ip prefix-list NOIDA_DC_SUBNETS seq 310 permit x.x.x.x/24
+  618 |ip prefix-list NOIDA_DC_SUBNETS seq 315 permit x.x.x.x/24
+  619 |ip prefix-list NOIDA_DC_SUBNETS seq 320 permit x.x.x.x/24
+  620 |ip prefix-list NOIDA_DC_SUBNETS seq 325 permit x.x.x.x/24
+  621 |ip prefix-list NOIDA_DC_SUBNETS seq 330 permit x.x.x.x/24
+  622 |ip prefix-list NOIDA_DC_SUBNETS seq 335 permit x.x.x.x/24
+  623 |ip prefix-list NOIDA_DC_SUBNETS seq 340 permit x.x.x.x/24
+  624 |ip prefix-list NOIDA_DC_SUBNETS seq 345 permit x.x.x.x/24
+  625 |ip prefix-list NOIDA_DC_SUBNETS seq 350 permit x.x.x.x/24
+  626 |ip prefix-list NOIDA_DC_SUBNETS seq 355 permit x.x.x.x/24
+  627 |ip prefix-list NOIDA_DC_SUBNETS seq 360 permit x.x.x.x/24
+  628 |ip prefix-list NOIDA_DC_SUBNETS seq 365 permit x.x.x.x/24
+  629 |ip prefix-list NOIDA_DC_SUBNETS seq 370 permit x.x.x.x/24
+  630 |ip prefix-list NOIDA_DC_SUBNETS seq 375 permit x.x.x.x/24
+  631 |ip prefix-list NOIDA_DC_SUBNETS seq 380 permit x.x.x.x/24
+  632 |ip prefix-list NOIDA_DC_SUBNETS seq 385 permit x.x.x.x/23
+  633 |ip prefix-list NOIDA_DC_SUBNETS seq 390 permit x.x.x.x/24
+  634 |ip prefix-list NOIDA_DC_SUBNETS seq 395 permit x.x.x.x/24
+  635 |ip prefix-list NOIDA_DC_SUBNETS seq 400 permit x.x.x.x/24
+  636 |ip prefix-list NOIDA_DC_SUBNETS seq 405 permit x.x.x.x/26
+  637 |ip prefix-list NOIDA_DC_SUBNETS seq 410 permit x.x.x.x/26
+  638 |ip prefix-list NOIDA_DC_SUBNETS seq 415 permit x.x.x.x/27
+  639 |ip prefix-list NOIDA_DC_SUBNETS seq 420 permit x.x.x.x/24
+  640 |ip prefix-list NOIDA_DC_SUBNETS seq 425 permit x.x.x.x/24
+  641 |ip prefix-list NOIDA_DC_SUBNETS seq 430 permit x.x.x.x/24
+  642 |ip prefix-list NOIDA_DC_SUBNETS seq 435 permit x.x.x.x/24
+  643 |ip prefix-list NOIDA_DC_SUBNETS seq 440 permit x.x.x.x/24
+  644 |ip prefix-list NOIDA_DC_SUBNETS seq 445 permit x.x.x.x/24
+  645 |ip prefix-list NOIDA_DC_SUBNETS seq 450 permit x.x.x.x/26
+  646 |ip prefix-list NOIDA_DC_SUBNETS seq 455 permit x.x.x.x/29
+  647 |ip prefix-list NOIDA_DC_SUBNETS seq 460 permit x.x.x.x/29
+  648 |ip prefix-list NOIDA_DC_SUBNETS seq 465 permit x.x.x.x/24
+  649 |ip prefix-list NOIDA_DC_SUBNETS seq 470 permit x.x.x.x/30
+  650 |ip prefix-list NOIDA_DC_SUBNETS seq 475 permit x.x.x.x/26
+  651 |ip prefix-list NOIDA_DC_SUBNETS seq 480 permit x.x.x.x/25
+  652 |ip prefix-list NOIDA_DC_SUBNETS seq 485 permit x.x.x.x/25
+  653 |ip prefix-list NOIDA_DC_SUBNETS seq 490 permit x.x.x.x/25
+  654 |ip prefix-list NOIDA_DC_SUBNETS seq 495 permit x.x.x.x/24
+  655 |ip prefix-list NOIDA_DC_SUBNETS seq 500 permit x.x.x.x/23
+  656 |ip prefix-list NOIDA_DC_SUBNETS seq 505 permit x.x.x.x/24
+  657 |ip prefix-list NOIDA_DC_SUBNETS seq 510 permit x.x.x.x/24
+  658 |ip prefix-list NOIDA_DC_SUBNETS seq 515 permit x.x.x.x/24
+  659 |ip prefix-list NOIDA_DC_SUBNETS seq 520 permit x.x.x.x/24
+  660 |ip prefix-list NOIDA_DC_SUBNETS seq 525 permit x.x.x.x/24
+  661 |ip prefix-list NOIDA_DC_SUBNETS seq 530 permit x.x.x.x/22
+  662 |ip prefix-list NOIDA_DC_SUBNETS seq 535 permit x.x.x.x/24
+  663 |ip prefix-list NOIDA_DC_SUBNETS seq 540 permit x.x.x.x/24
+  664 |ip prefix-list NOIDA_DC_SUBNETS seq 545 permit x.x.x.x/24
+  665 |ip prefix-list NOIDA_DC_SUBNETS seq 550 permit x.x.x.x/24
+  666 |ip prefix-list NOIDA_DC_SUBNETS seq 555 permit x.x.x.x/24
+  667 |ip prefix-list NOIDA_DC_SUBNETS seq 560 permit x.x.x.x/24
+  668 |ip prefix-list NOIDA_DC_SUBNETS seq 565 permit x.x.x.x/24
+  669 |ip prefix-list NOIDA_DC_SUBNETS seq 570 permit x.x.x.x/24
+  670 |ip prefix-list NOIDA_DC_SUBNETS seq 575 permit x.x.x.x/24
+  671 |ip prefix-list NOIDA_DC_SUBNETS seq 580 permit x.x.x.x/24
+  672 |ip prefix-list NOIDA_DC_SUBNETS seq 585 permit x.x.x.x/24
+  673 |!
+  674 |ip prefix-list SIFY_MNG_SUBNETS seq 5 permit x.x.x.x/32
+  675 |ip prefix-list SIFY_MNG_SUBNETS seq 10 permit x.x.x.x/32
+  676 |ip prefix-list SIFY_MNG_SUBNETS seq 15 permit x.x.x.x/32
+  677 |ip prefix-list SIFY_MNG_SUBNETS seq 20 permit x.x.x.x/32
+  678 |ip prefix-list SIFY_MNG_SUBNETS seq 25 permit x.x.x.x/32
+  679 |ip prefix-list SIFY_MNG_SUBNETS seq 30 permit x.x.x.x/32
+  680 |ip prefix-list SIFY_MNG_SUBNETS seq 35 permit x.x.x.x/32
+  681 |ip prefix-list SIFY_MNG_SUBNETS seq 40 permit x.x.x.x/32
+  682 |ip prefix-list SIFY_MNG_SUBNETS seq 45 permit x.x.x.x/32
+  683 |ip prefix-list SIFY_MNG_SUBNETS seq 50 permit x.x.x.x/32
+  684 |ip prefix-list SIFY_MNG_SUBNETS seq 55 permit x.x.x.x/26
+  685 |ip prefix-list SIFY_MNG_SUBNETS seq 60 permit x.x.x.x/32
+  686 |ip prefix-list SIFY_MNG_SUBNETS seq 65 permit x.x.x.x/32
+  687 |ip prefix-list SIFY_MNG_SUBNETS seq 70 permit x.x.x.x/32
+  688 |ip prefix-list SIFY_MNG_SUBNETS seq 75 permit x.x.x.x/32
+  689 |ip prefix-list SIFY_MNG_SUBNETS seq 80 permit x.x.x.x/32
+  690 |ip sla 10
+  691 | udp-jitter x.x.x.x 1000 source-ip x.x.x.x
+  692 | tag Adani_SOLAR_Nalwar-Chitapur_PRI_AIRTEL_4900040318
+  693 | frequency 30
+  694 |ip sla schedule 10 life forever start-time now
+  695 |logging facility syslog
+  696 |logging source-interface Loopback80
+  697 |logging host x.x.x.x transport udp port 520
+  698 |logging host x.x.x.x transport udp port 522
+  699 |logging host x.x.x.x
+  700 |logging host x.x.x.x
+  701 |ipv6 ioam timestamp
+  702 |!
+  703 |route-map AIRTEL_WAN_OUT permit 10
+  704 | match ip address prefix-list LAN
+  705 |!
+  706 |route-map AIRTEL_WAN_IN permit 1
+  707 | match ip address prefix-list NOIDA_DC_SUBNETS
+  708 |!
+  709 |route-map AIRTEL_WAN_IN permit 2
+  710 | match ip address prefix-list ACH_CORE
+  711 |!
+  712 |route-map AIRTEL_WAN_IN permit 3
+  713 | match ip address prefix-list SIFY_MNG_SUBNETS
+  714 |!
+  715 |route-map AIRTEL_WAN_IN permit 4
+  716 | match ip address prefix-list DR_USER_APPLICATION
+  717 |!
+  718 |route-map AIRTEL_WAN_IN permit 5
+  719 |!
+  720 |snmp-server community xxxxxxxx RO 85
+  721 |snmp-server ifindex persist
+  722 |snmp-server trap-source Loopback80
+  723 |snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
+  724 |snmp-server enable traps vrrp
+  725 |snmp-server enable traps pfr
+  726 |snmp-server enable traps flowmon
+  727 |snmp-server enable traps call-home message-send-fail server-fail
+  728 |snmp-server enable traps tty
+  729 |snmp-server enable traps eigrp
+  730 |snmp-server enable traps ospf state-change
+  731 |snmp-server enable traps ospf errors
+  732 |snmp-server enable traps ospf retransmit
+  733 |snmp-server enable traps ospf lsa
+  734 |snmp-server enable traps ospf cisco-specific state-change nssa-trans-change
+  735 |snmp-server enable traps ospf cisco-specific state-change shamlink interface
+  736 |snmp-server enable traps ospf cisco-specific state-change shamlink neighbor
+  737 |snmp-server enable traps ospf cisco-specific errors
+  738 |snmp-server enable traps ospf cisco-specific retransmit
+  739 |snmp-server enable traps ospf cisco-specific lsa
+  740 |snmp-server enable traps license
+  741 |snmp-server enable traps envmon
+  742 |snmp-server enable traps ethernet cfm cc mep-up mep-down cross-connect loop config
+  743 |snmp-server enable traps ethernet cfm crosscheck mep-missing mep-unknown service-up
+  744 |snmp-server enable traps flash insertion removal low-space
+  745 |snmp-server enable traps auth-framework sec-violation auth-fail
+  746 |snmp-server enable traps c3g
+  747 |snmp-server enable traps LTE
+  748 |snmp-server enable traps mac-notification
+  749 |snmp-server enable traps trustsec-sxp conn-srcaddr-err msg-parse-err conn-config-err binding-err conn-up conn-down binding-expn-fail oper-nodeid-change binding-conflict
+  750 |snmp-server enable traps cisco-sys heartbeat
+  751 |snmp-server enable traps cef resource-failure peer-state-change peer-fib-state-change inconsistency
+  752 |snmp-server enable traps dlsw
+  753 |snmp-server enable traps aaa_server
+  754 |snmp-server enable traps atm subif
+  755 |snmp-server enable traps bfd
+  756 |snmp-server enable traps bgp
+  757 |snmp-server enable traps bgp cbgp2
+  758 |snmp-server enable traps memory bufferpeak
+  759 |snmp-server enable traps cnpd
+  760 |snmp-server enable traps config-copy
+  761 |snmp-server enable traps config
+  762 |snmp-server enable traps config-ctid
+  763 |snmp-server enable traps entity-ext
+  764 |snmp-server enable traps entity
+  765 |snmp-server enable traps fru-ctrl
+  766 |snmp-server enable traps resource-policy
+  767 |snmp-server enable traps event-manager
+  768 |snmp-server enable traps frame-relay multilink bundle-mismatch
+  769 |snmp-server enable traps frame-relay
+  770 |snmp-server enable traps frame-relay subif
+  771 |snmp-server enable traps hsrp
+  772 |snmp-server enable traps ipmulticast
+  773 |snmp-server enable traps isis
+  774 |snmp-server enable traps mempool
+  775 |snmp-server enable traps mpls traffic-eng
+  776 |snmp-server enable traps mpls fast-reroute protected
+  777 |snmp-server enable traps mpls rfc ldp
+  778 |snmp-server enable traps mpls ldp
+  779 |snmp-server enable traps msdp
+  780 |snmp-server enable traps mvpn
+  781 |snmp-server enable traps pim neighbor-change rp-mapping-change invalid-pim-message
+  782 |snmp-server enable traps cpu threshold
+  783 |snmp-server enable traps rsvp
+  784 |snmp-server enable traps ipsla
+  785 |snmp-server enable traps syslog
+  786 |snmp-server enable traps l2tun session
+  787 |snmp-server enable traps l2tun pseudowire status
+  788 |snmp-server enable traps vtp
+  789 |snmp-server enable traps pw vc
+  790 |snmp-server enable traps lisp
+  791 |snmp-server enable traps firewall serverstatus
+  792 |snmp-server enable traps ipmobile
+  793 |snmp-server enable traps ospfv3 state-change
+  794 |snmp-server enable traps ospfv3 errors
+  795 |snmp-server enable traps pki
+  796 |snmp-server enable traps nhrp nhs
+  797 |snmp-server enable traps nhrp nhc
+  798 |snmp-server enable traps nhrp nhp
+  799 |snmp-server enable traps nhrp quota-exceeded
+  800 |snmp-server enable traps waas 
+  801 |snmp-server enable traps gdoi gm-start-registration
+  802 |snmp-server enable traps gdoi gm-registration-complete
+  803 |snmp-server enable traps gdoi gm-re-register
+  804 |snmp-server enable traps gdoi gm-rekey-rcvd
+  805 |snmp-server enable traps gdoi gm-rekey-fail
+  806 |snmp-server enable traps gdoi ks-rekey-pushed
+  807 |snmp-server enable traps gdoi gm-incomplete-cfg
+  808 |snmp-server enable traps gdoi ks-no-rsa-keys
+  809 |snmp-server enable traps gdoi ks-new-registration
+  810 |snmp-server enable traps gdoi ks-reg-complete
+  811 |snmp-server enable traps gdoi ks-role-change
+  812 |snmp-server enable traps gdoi ks-gm-deleted
+  813 |snmp-server enable traps gdoi ks-peer-reachable
+  814 |snmp-server enable traps gdoi ks-peer-unreachable
+  815 |snmp-server enable traps ike policy add
+  816 |snmp-server enable traps ike policy delete
+  817 |snmp-server enable traps ike tunnel start
+  818 |snmp-server enable traps ike tunnel stop
+  819 |snmp-server enable traps ipsec cryptomap add
+  820 |snmp-server enable traps ipsec cryptomap delete
+  821 |snmp-server enable traps ipsec cryptomap attach
+  822 |snmp-server enable traps ipsec cryptomap detach
+  823 |snmp-server enable traps ipsec tunnel start
+  824 |snmp-server enable traps ipsec tunnel stop
+  825 |snmp-server enable traps ipsec too-many-sas
+  826 |snmp-server enable traps ethernet cfm alarm
+  827 |snmp-server enable traps rf
+  828 |snmp-server enable traps mpls vpn
+  829 |snmp-server enable traps vrfmib vrf-up vrf-down vnet-trunk-up vnet-trunk-down
+  830 |snmp-server host x.x.x.x version 2c xxxxxxxx 
+  831 |snmp-server host x.x.x.x version 2c xxxxxxxx 
+  832 |snmp-server host x.x.x.x version 2c xxxxxxxx 
+  833 |snmp-server host x.x.x.x version 2c xxxxxxxx 
+  834 |snmp-server host x.x.x.x version 2c xxxxxxxx 
+  835 |snmp-server host x.x.x.x version 2c xxxxxxxx 
+  836 |snmp-server host x.x.x.x version 2c xxxxxxxx 
+  837 |!
+  838 |tacacs server SERVER02
+  839 | address ipv4 x.x.x.x
+  840 | key xxxxxxxx
+  841 |tacacs server SERVER01
+  842 | address ipv4 x.x.x.x
+  843 | key xxxxxxxx
+  844 |access-list 23 permit x.x.x.x x.x.x.x
+  845 |access-list 50 permit x.x.x.x
+  846 |access-list 50 permit x.x.x.x
+  847 |access-list 85 permit x.x.x.x
+  848 |access-list 85 remark ## Permit SNMP Server ##
+  849 |access-list 85 permit x.x.x.x
+  850 |access-list 85 remark ## SNMP Server allow for NMS-Aleart ##
+  851 |access-list 85 remark ## Cisco Prime ##
+  852 |access-list 85 remark ## DNA Server ###
+  853 |access-list 85 remark ### ACH PRIME Server ###
+  854 |access-list 85 permit x.x.x.x
+  855 |access-list 85 permit x.x.x.x
+  856 |access-list 85 permit x.x.x.x
+  857 |access-list 85 remark ## CMDB-SERVER-ALLOW ##
+  858 |access-list 85 permit x.x.x.x
+  859 |access-list 85 permit x.x.x.x
+  860 |access-list 85 permit x.x.x.x
+  861 |access-list 85 permit x.x.x.x
+  862 |access-list 85 remark ### STEALTHAWATCH ###
+  863 |access-list 85 permit x.x.x.x
+  864 |access-list 85 remark ## NDC PRTG ##
+  865 |access-list 85 remark ## SNMP Server allow for NMS-Aleart ##
+  866 |access-list 85 remark ## Cisco Prime ##
+  867 |access-list 85 remark ## DNA Server ###
+  868 |access-list 85 remark ### IPAM ###
+  869 |access-list 85 permit x.x.x.x
+  870 |access-list 99 permit x.x.x.x x.x.x.x
+  871 |!
+  872 |!
+  873 |!
+  874 |control-plane
+  875 |!
+  876 |privilege configure all level 7 clock
+  877 |privilege exec level 7 dir
+  878 |privilege exec level 7 more
+  879 |privilege exec all level 7 telnet
+  880 |privilege exec all level 7 traceroute
+  881 |privilege exec all level 7 ping
+  882 |privilege exec level 7 configure terminal
+  883 |privilege exec level 7 configure
+  884 |privilege exec level 7 show memory
+  885 |privilege exec all level 7 show ip
+  886 |privilege exec all level 7 show flow
+  887 |privilege exec level 7 show startup-config
+  888 |privilege exec level 7 show running-config view full
+  889 |privilege exec level 7 show running-config view
+  890 |privilege exec level 7 show running-config
+  891 |privilege exec level 7 show configuration
+  892 |privilege exec level 7 show logging
+  893 |privilege exec level 7 show
+  894 |banner exec ^CC
+  895 |You are connected to line $(line) at router $(hostname)
+  896 |^C
+  897 |banner login ^CC
+  898 | 
+  899 |      ***************************************************************
+  900 |      *            !!!   AUTHORISED ACCESS ONLY   !!!               *
+  901 |      *            **********************************               *
+  902 |      *              It is a Property of Adani Group.               *
+  903 |      *       All activities on this system are monitotered.        *
+  904 |      *  DISCONNECT IMMEDIATELY if you are not an authorised user!  *
+  905 |      ***************************************************************
+  906 |                      READ THE FOLLOWING CAREFULLY
+  907 |=============================================================================
+  908 |  This System is for the use of Authorised Adani personnel only.Individuals
+  909 |using this System without proper authority, or in excess of their authority
+  910 |are subject to having all oF their activities on this system monitored and
+  911 |recorded by system personnel.In case of monitoring individuals improperly
+  912 |using this system,or in case of system maintenance, the  activities of
+  913 |authorized users may also be monitored and logged.Anyone using this system
+  914 |expressly consents to such monitoring and is advised that if such monitoring
+  915 |reveals possible evidence of criminal activity, system personnel may provide
+  916 |the evidence of such monitoring to law enforcement officals.
+  917 |==============================================================================
+  918 |
+  919 |^C
+  920 |!
+  921 |line con 0
+  922 | exec-timeout 5 0
+  923 |password 7 xxxxxxxx
+  924 | no modem enable
+  925 | transport output none
+  926 | stopbits 1
+  927 |line vty 0 4
+  928 | access-class VTY_MGMT_ACL in
+  929 | exec-timeout 5 0
+  930 | authorization commands 15 aaa
+  931 | authorization exec aaa
+  932 | logging synchronous
+  933 | login xxxxxx
+  934 | transport input ssh
+  935 | transport output ssh
+  936 |line vty 5 15
+  937 | access-class VTY_MGMT_ACL in
+  938 | exec-timeout 5 0
+  939 | authorization commands 15 aaa
+  940 | authorization exec aaa
+  941 | logging synchronous
+  942 | login xxxxxx
+  943 | transport input ssh
+  944 | transport output ssh
+  945 |!
+  946 |scheduler allocate 20000 1000
+  947 |no ntp allow mode control 0
+  948 |ntp server x.x.x.x source GigabitEthernet0/0
+  949 |ntp server x.x.x.x prefer source Loopback80
+  950 |ntp server x.x.x.x source Loopback80
+  951 |!
+  952 |end
+  953 |
+  954 |
